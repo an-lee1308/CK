@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <h1>Thêm bảo dưỡng</h1>
+    <form action="" method="post">
+      <p>
+        <label for="soxe">Số xe</label>
+        <input
+          type="text"
+          name="soxe"
+          id="soxe"
+          onchange="fetch_select(this.value)"
+          ;
+        />
+      </p>
+      <p>
+        <label for="tenkh">Tên khách hàng:</label>
+        <input type="text" name="tenkh" id="tenkh" />
+      </p>
+      <p>
+        <label for="mabd">Mã bảo dưỡng</label>
+        <input type="text" name="mabd" id="mabd" />
+      </p>
+      <p>
+        <label for="sokm">Số km</label>
+        <input type="text" name="sokm" id="sokm" />
+      </p>
+      <p>
+        <label for="noidung">Nội dung</label>
+        <input type="text" name="noidung" id="noidung" />
+      </p>
+      <p>
+        <button type="submit" id="submit" onsubmit="fetch_select1()">
+          Thêm
+        </button>
+      </p>
+    </form>
+    <script>
+      function fetch_select(val) {
+        $.ajax({
+          type: "post",
+          url: "cau3.php",
+          datatype: "json",
+          data: {
+            soxe: val,
+          },
+          success: function (response) {
+            $("#tenkh").val(response); //This will print you result
+          },
+        });
+      }
+
+      $(function () {
+        $("form").on("submit", function (e) {
+          e.preventDefault();
+          $.ajax({
+            type: "post",
+            url: "cau3b.php",
+            data: $("form").serialize(),
+            success: function () {
+              alert("Insert success!");
+            },
+          });
+        });
+      });
+    </script>
+    <div id="res"></div>
+  </body>
+</html>
